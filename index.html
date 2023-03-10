@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>VUE-js</title>
+</head>
+
+<body>
+    <div id="app">
+        <header class="header">
+            <h1 class="logo">Techno</h1>
+            <div class="carrinho_menu" @click="carrinhoAtivo = true">{{carrinhoTotal | numberPrice}} |
+                {{carrinho.length}}</div>
+        </header>
+        <!--  -->
+        <section class="products">
+            <div v-for="product in products" :id="product.id" @click="openModal(product.id)" class="product">
+                <img :src="product.img" :alt="product.nome" class="product_img" />
+                <div class="product_info">
+                    <span class="product_price">{{product.preco | numberPrice}}</span>
+                    <h1 class="product_title">{{product.nome}}</h1>
+                </div>
+            </div>
+        </section>
+        <!--  -->
+        <section class="modal" v-if="dateProduct" @clicik="closeModal">
+            <div class="modal_container">
+                <div class="modal_img">
+                    <img :src="dateProduct.img" :alt="dateProduct.nome">
+                </div>
+                <div class="modal_date">
+                    <button class="modal_close" @click="dateProduct = false">X</button>
+                    <span class="modal_price">{{dateProduct.preco | numberPrice}}</span>
+                    <h2 class="modal_title">{{dateProduct.nome}}</h2>
+                    <p class="modal_title">{{dateProduct.descricao}}</p>
+                    <button v-if="dateProduct.estoque > 0" class="modal_btn" @click="addItem">Adicionar Item</button>
+                    <button v-else class="modal_btn soldOf" disabled>Prduto Esgotado</button>
+                </div>
+                <div class="avaliations">
+                    <h2 class="avaliation_subTitle">Avaliaçãoes</h2>
+                    <ul class="avatiation">
+                        <li v-for="avaliation in dateProduct.reviews">
+                            <p class="avaliation_description">{{avaliation.descricao}}</p>
+                            <p class="avaliation_user">{{avaliation.nome}} | {{avaliation.estrelas}} estrelas</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div class="carrinho_modal" :class="{ativo: carrinhoAtivo}" @click="clickForaCarrinho">
+            <div class="carrinho_container">
+                <button @click="carrinhoAtivo" class="carrinho_close">X</button>
+                <h2 class="carrinho_title">Carrinho</h2>
+                <div v-if="carrinho.length > 0">
+                    <ul class="carrinho_list">
+                        <li v-for="(item, index) in carrinho" class="carrinho_item">
+                            <p class="">{{item.nome}}</p>
+                            <p class="carrinho_price">{{item.preco | numberPrice}}</p>
+                            <button class="carrinho_remove" @click="removeItem(index)">X</button>
+                        </li>
+                    </ul>
+                    <p class="carrinho_total">{{carrinhoTotal | numberPrice}}</p>
+                    <button>Finalizar Compra</button>
+                </div>
+                <p v-else>O carrinho está vazio!</p>
+            </div>
+        </div>
+        <div class="alert" :class="{ativo: alertActive}">
+            <p class="alertMessage">{{alertMessage}}</p>
+        </div>
+        <!--  -->
+        <footer></footer>
+    </div>
+    <script src="./app.js"></script>
+</body>
+
+</html>
