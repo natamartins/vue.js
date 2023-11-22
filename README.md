@@ -23,7 +23,7 @@ This project was developed with the following technologies:
 
 <h2 id="usage">🎯 Use</h2>
 
-The application is available for use [here](https://code-helpe-v2.vercel.app/). You can also run it on your machine locally. Make sure you have `Node.js` and `npm` installed before proceeding with the steps below:
+The application is available for use [here](https://vue-js-beryl-pi.vercel.app/#). You can also run it on your machine locally. Make sure you have `Node.js` and `npm` installed before proceeding with the steps below:
 
 1. Clone the project:
 
